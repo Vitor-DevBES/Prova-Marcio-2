@@ -1,0 +1,205 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para CRUD de produtos na loja de departamentos",
+        "version": "1.0.0",
+        "title": "Loja de Departamentos API",
+        "contact": {
+            "email": "seuemail@dominio.com"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "produtos",
+            "description": "Gerenciamento de Produtos"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/produtos": {
+            "get": {
+                "tags": ["produtos"],
+                "summary": "Listar todos os produtos",
+                "description": "Retorna todos os produtos",
+                "operationId": "getProdutos",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Lista de produtos",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Produto"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produto": {
+            "get": {
+                "tags": ["produtos"],
+                "summary": "Obter produto por ID ou Nome",
+                "description": "Retorna um produto específico pelo ID ou Nome",
+                "operationId": "getProduto",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto encontrado",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["produtos"],
+                "summary": "Criar novo produto",
+                "description": "Cadastra um novo produto",
+                "operationId": "createProduto",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Produto a ser criado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Produto criado",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                }
+            }
+        },
+        "/produto/{id}": {
+            "put": {
+                "tags": ["produtos"],
+                "summary": "Atualizar produto",
+                "description": "Atualiza um produto existente",
+                "operationId": "updateProduto",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Dados do produto a serem atualizados",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto atualizado",
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["produtos"],
+                "summary": "Deletar produto",
+                "description": "Deleta um produto existente",
+                "operationId": "deleteProduto",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto deletado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Produto": {
+            "type": "object",
+            "required": ["nome", "descricao", "cor", "peso", "tipo", "preco"],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "cor": {
+                    "type": "string"
+                },
+                "peso": {
+                    "type": "number"
+                },
+                "tipo": {
+                    "type": "string"
+                },
+                "preco": {
+                    "type": "number"
+                },
+                "dataCadastro": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}
