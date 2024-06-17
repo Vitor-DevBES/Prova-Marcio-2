@@ -8,7 +8,7 @@
             "email": "seuemail@dominio.com"
         }
     },
-    "host": "https://prova-marcio.vercel.app/api-docs/#/",
+    "host": "prova-marcio.vercel.app",
     "basePath": "/api",
     "tags": [
         {
